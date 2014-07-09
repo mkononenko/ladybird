@@ -1,18 +1,19 @@
-﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.myco.ladybird.server</groupId>
-        <version>0.0.1-SNAPSHOT</version>
         <artifactId>common</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.myco.ladybird.server.common</groupId>
     <artifactId>netty</artifactId>
     <packaging>pom</packaging>
 
-    <name>Netty</name>
+    <name>Ladybird Netty</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,12 +22,4 @@
     <modules>
         <module>server</module>
     </modules>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-            </plugins>
-        </pluginManagement>
-    </build>
-
 </project>

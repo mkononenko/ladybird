@@ -4,16 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.myco.ladybird.server.common</groupId>
-        <artifactId>netty</artifactId>
+        <groupId>com.myco.ladybird</groupId>
+        <artifactId>server</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.myco.ladybird.server.common.netty</groupId>
-    <artifactId>server</artifactId>
+    <groupId>com.myco.ladybird.server</groupId>
+    <artifactId>operational</artifactId>
     <packaging>jar</packaging>
 
-    <name>Ladybird Netty Server</name>
+    <name>Ladybird Operational Server</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,10 +25,14 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-            <!-- TODO : expand to just required modules -->
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
+            <groupId>com.myco.ladybird.server.common.netty</groupId>
+            <artifactId>server</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.myco.ladybird.common</groupId>
+            <artifactId>exchange</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
-
 </project>

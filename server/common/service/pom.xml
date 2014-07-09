@@ -10,20 +10,12 @@
     </parent>
 
     <groupId>com.myco.ladybird.server.common</groupId>
-    <artifactId>dao</artifactId>
+    <artifactId>service</artifactId>
     <packaging>jar</packaging>
 
-    <name>Ladybird Dao</name>
+    <name>Ladybird Internal Services Layer</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 </project>

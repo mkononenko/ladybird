@@ -4,16 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.myco.ladybird.server</groupId>
+        <groupId>com.myco.ladybird</groupId>
         <artifactId>common</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.myco.ladybird.server.common</groupId>
-    <artifactId>dao</artifactId>
+    <groupId>com.myco.ladybird.common</groupId>
+    <artifactId>exchange</artifactId>
     <packaging>jar</packaging>
 
-    <name>Ladybird Dao</name>
+    <name>Ladybird Exchange</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,9 +21,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>core</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

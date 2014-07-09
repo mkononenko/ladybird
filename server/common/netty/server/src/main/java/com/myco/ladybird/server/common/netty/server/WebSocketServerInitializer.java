@@ -12,11 +12,20 @@ import io.netty.handler.codec.http.HttpServerCodec;
  */
 public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
 
+    private ServerConfiguration serverConfiguration;
+
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
         ChannelPipeline pipeline = channel.pipeline();
         pipeline.addLast(new HttpServerCodec());
         pipeline.addLast(new HttpObjectAggregator(65536));
         pipeline.addLast(new WebSocketServerHandler());
+        pipeline.addLast(new RequestDecoder(serverConfiguration.getExchangeFactory()));
+        pipeline.addLast(new ResponseEncoder());
+        pipeline.addLast(serverConfiguration.getRequestHandler());
+    }
+
+    public void setServerConfiguration(ServerConfiguration serverConfiguration) {
+        this.serverConfiguration = serverConfiguration;
     }
 }

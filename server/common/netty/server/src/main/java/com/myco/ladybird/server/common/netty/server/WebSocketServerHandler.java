@@ -60,23 +60,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
             return;
         }
 
-        // Send the demo page and favicon.ico
-        if ("/".equals(request.getUri())) {
-            ByteBuf content = Unpooled.copiedBuffer("", CharsetUtil.US_ASCII);
-            FullHttpResponse res = new DefaultFullHttpResponse(HTTP_1_1, OK, content);
-
-            res.headers().set(CONTENT_TYPE, "text/html; charset=UTF-8");
-            HttpHeaders.setContentLength(res, content.readableBytes());
-
-            sendHttpResponse(context, request, res);
-            return;
-        }
-        if ("/favicon.ico".equals(request.getUri())) {
-            FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, NOT_FOUND);
-            sendHttpResponse(context, request, response);
-            return;
-        }
-
         // Handshake
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
                 getWebSocketLocation(request), null, false);
@@ -89,7 +72,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     private void handleWebSocketFrame(ChannelHandlerContext context, WebSocketFrame frame) {
-
         // Check for closing frame
         if (frame instanceof CloseWebSocketFrame) {
             handshaker.close(context.channel(), (CloseWebSocketFrame) frame.retain());
@@ -104,10 +86,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
                     .getName()));
         }
 
-        // Send the uppercase string back.
-        String request = ((TextWebSocketFrame) frame).text();
-        System.err.printf("%s received %s%n", context.channel(), request);
-        context.channel().write(new TextWebSocketFrame(request.toUpperCase()));
+        context.fireChannelRead(frame.content().array());
     }
 
     private static void sendHttpResponse(
@@ -129,7 +108,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        cause.printStackTrace();
+        cause.printStackTrace();//TODO
         ctx.close();
     }
 
