@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:security="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+            http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+            http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+    <cache:annotation-driven/>
+	
+    <context:component-scan base-package="com.myco.ladybird.server.operational" />
+
+    <!--import resource="classpath:common-dao-context.xml" /-->
+
+    <util:properties id="properties" location="classpath:/operational-server.properties" />
+
+    <bean id="operationalBootstrapService" class="com.myco.ladybird.server.operational.infra.bootstrap.DefaultOperationalBootstrapService"/>
+
+    <bean id="requestProcessor" class="com.myco.ladybird.server.operational.service.processor.DefaultRequestProcessor"/>
+
+    <bean id="operationalConfiguration" class="com.myco.ladybird.server.operational.infra.configuration.OperationalConfiguration">
+        <property name="nettyServerConfiguration">
+            <bean class="com.myco.ladybird.server.common.netty.server.ServerConfiguration">
+                <property name="exchangeFactory">
+                    <bean class="com.myco.ladybird.server.operational.service.exchange.netty.ThriftExchangeFactory"/>
+                </property>
+                <property name="requestHandler">
+                    <bean class="com.myco.ladybird.server.operational.infra.requesthandler.netty.DefaultRequestHandler">
+                        <property name="requestProcessor" ref="requestProcessor"/>
+                    </bean>
+                </property>
+                <property name="bindInterface" value="#{properties[netty_host]}"/>
+                <property name="port" value="#{properties[netty_port]}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="processorOrchestrator" class="com.myco.ladybird.server.operational.service.processor.orchestrator.DefaultProcessorOrchestrator">
+        <property name="messageDestinationDefinitions">
+            <list>
+                <bean class="com.myco.ladybird.server.operational.service.processor.orchestrator.MessageDestinationDefinition">
+                    <property name="queue" ref="createAccountQueue"/>
+                    <property name="processorClass" value="com.myco.ladybird.server.operational.service.processor.account.DefaultCreateAccountProcessor"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="createAccountQueue" class="java.util.concurrent.LinkedBlockingQueue"/>
+</beans>

@@ -2,7 +2,7 @@ package com.myco.ladybird.server.common.netty.server;
 
 import com.myco.ladybird.server.common.netty.server.exchange.ExchangeFactory;
 
-import io.netty.channel.ChannelInboundHandler;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  *
@@ -14,7 +14,7 @@ public class ServerConfiguration {
     private String bindInterface = ServerConfigurationConstants.DEFAULT_BIND_INTERFACE;
     private int port = ServerConfigurationConstants.DEFAULT_PORT;
     private ExchangeFactory exchangeFactory;
-    private ChannelInboundHandler requestHandler;
+    private SimpleChannelInboundHandler requestHandler;
 
     public int getExecutorThreadSize() {
         return executorThreadSize;
@@ -48,11 +48,11 @@ public class ServerConfiguration {
         this.exchangeFactory = exchangeFactory;
     }
 
-    public ChannelInboundHandler getRequestHandler() {
+    public SimpleChannelInboundHandler getRequestHandler() {
         return requestHandler;
     }
 
-    public void setRequestHandler(ChannelInboundHandler requestHandler) {
+    public void setRequestHandler(SimpleChannelInboundHandler requestHandler) {
         this.requestHandler = requestHandler;
     }
 }

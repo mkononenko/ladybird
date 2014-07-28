@@ -36,13 +36,13 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings({"cast", "rawtypes", "serial", "unchecked"})
 public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeRequestPayload, ExchangeRequestPayload._Fields> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("ExchangeRequestPayload");
-  private static final org.apache.thrift.protocol.TField REGISTER_REQUEST_FIELD_DESC = new org.apache.thrift.protocol.TField("registerRequest", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+  private static final org.apache.thrift.protocol.TField CREATE_ACCOUNT_REQUEST_FIELD_DESC = new org.apache.thrift.protocol.TField("createAccountRequest", org.apache.thrift.protocol.TType.STRUCT, (short)1);
   private static final org.apache.thrift.protocol.TField CONNECT_REQUEST_FIELD_DESC = new org.apache.thrift.protocol.TField("connectRequest", org.apache.thrift.protocol.TType.STRUCT, (short)2);
   private static final org.apache.thrift.protocol.TField PING_REQUEST_FIELD_DESC = new org.apache.thrift.protocol.TField("pingRequest", org.apache.thrift.protocol.TType.STRUCT, (short)3);
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    REGISTER_REQUEST((short)1, "registerRequest"),
+    CREATE_ACCOUNT_REQUEST((short)1, "createAccountRequest"),
     CONNECT_REQUEST((short)2, "connectRequest"),
     PING_REQUEST((short)3, "pingRequest");
 
@@ -59,8 +59,8 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
-        case 1: // REGISTER_REQUEST
-          return REGISTER_REQUEST;
+        case 1: // CREATE_ACCOUNT_REQUEST
+          return CREATE_ACCOUNT_REQUEST;
         case 2: // CONNECT_REQUEST
           return CONNECT_REQUEST;
         case 3: // PING_REQUEST
@@ -107,8 +107,8 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.REGISTER_REQUEST, new org.apache.thrift.meta_data.FieldMetaData("registerRequest", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, RegisterRequest.class)));
+    tmpMap.put(_Fields.CREATE_ACCOUNT_REQUEST, new org.apache.thrift.meta_data.FieldMetaData("createAccountRequest", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+        new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, CreateAccountRequest.class)));
     tmpMap.put(_Fields.CONNECT_REQUEST, new org.apache.thrift.meta_data.FieldMetaData("connectRequest", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, ConnectRequest.class)));
     tmpMap.put(_Fields.PING_REQUEST, new org.apache.thrift.meta_data.FieldMetaData("pingRequest", org.apache.thrift.TFieldRequirementType.DEFAULT, 
@@ -132,9 +132,9 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
     return new ExchangeRequestPayload(this);
   }
 
-  public static ExchangeRequestPayload registerRequest(RegisterRequest value) {
+  public static ExchangeRequestPayload createAccountRequest(CreateAccountRequest value) {
     ExchangeRequestPayload x = new ExchangeRequestPayload();
-    x.setRegisterRequest(value);
+    x.setCreateAccountRequest(value);
     return x;
   }
 
@@ -154,11 +154,11 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
   @Override
   protected void checkType(_Fields setField, Object value) throws ClassCastException {
     switch (setField) {
-      case REGISTER_REQUEST:
-        if (value instanceof RegisterRequest) {
+      case CREATE_ACCOUNT_REQUEST:
+        if (value instanceof CreateAccountRequest) {
           break;
         }
-        throw new ClassCastException("Was expecting value of type RegisterRequest for field 'registerRequest', but got " + value.getClass().getSimpleName());
+        throw new ClassCastException("Was expecting value of type CreateAccountRequest for field 'createAccountRequest', but got " + value.getClass().getSimpleName());
       case CONNECT_REQUEST:
         if (value instanceof ConnectRequest) {
           break;
@@ -179,12 +179,12 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
     _Fields setField = _Fields.findByThriftId(field.id);
     if (setField != null) {
       switch (setField) {
-        case REGISTER_REQUEST:
-          if (field.type == REGISTER_REQUEST_FIELD_DESC.type) {
-            RegisterRequest registerRequest;
-            registerRequest = new RegisterRequest();
-            registerRequest.read(iprot);
-            return registerRequest;
+        case CREATE_ACCOUNT_REQUEST:
+          if (field.type == CREATE_ACCOUNT_REQUEST_FIELD_DESC.type) {
+            CreateAccountRequest createAccountRequest;
+            createAccountRequest = new CreateAccountRequest();
+            createAccountRequest.read(iprot);
+            return createAccountRequest;
           } else {
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, field.type);
             return null;
@@ -221,9 +221,9 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
   @Override
   protected void standardSchemeWriteValue(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     switch (setField_) {
-      case REGISTER_REQUEST:
-        RegisterRequest registerRequest = (RegisterRequest)value_;
-        registerRequest.write(oprot);
+      case CREATE_ACCOUNT_REQUEST:
+        CreateAccountRequest createAccountRequest = (CreateAccountRequest)value_;
+        createAccountRequest.write(oprot);
         return;
       case CONNECT_REQUEST:
         ConnectRequest connectRequest = (ConnectRequest)value_;
@@ -243,11 +243,11 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
     _Fields setField = _Fields.findByThriftId(fieldID);
     if (setField != null) {
       switch (setField) {
-        case REGISTER_REQUEST:
-          RegisterRequest registerRequest;
-          registerRequest = new RegisterRequest();
-          registerRequest.read(iprot);
-          return registerRequest;
+        case CREATE_ACCOUNT_REQUEST:
+          CreateAccountRequest createAccountRequest;
+          createAccountRequest = new CreateAccountRequest();
+          createAccountRequest.read(iprot);
+          return createAccountRequest;
         case CONNECT_REQUEST:
           ConnectRequest connectRequest;
           connectRequest = new ConnectRequest();
@@ -269,9 +269,9 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
   @Override
   protected void tupleSchemeWriteValue(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     switch (setField_) {
-      case REGISTER_REQUEST:
-        RegisterRequest registerRequest = (RegisterRequest)value_;
-        registerRequest.write(oprot);
+      case CREATE_ACCOUNT_REQUEST:
+        CreateAccountRequest createAccountRequest = (CreateAccountRequest)value_;
+        createAccountRequest.write(oprot);
         return;
       case CONNECT_REQUEST:
         ConnectRequest connectRequest = (ConnectRequest)value_;
@@ -289,8 +289,8 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
   @Override
   protected org.apache.thrift.protocol.TField getFieldDesc(_Fields setField) {
     switch (setField) {
-      case REGISTER_REQUEST:
-        return REGISTER_REQUEST_FIELD_DESC;
+      case CREATE_ACCOUNT_REQUEST:
+        return CREATE_ACCOUNT_REQUEST_FIELD_DESC;
       case CONNECT_REQUEST:
         return CONNECT_REQUEST_FIELD_DESC;
       case PING_REQUEST:
@@ -315,17 +315,17 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
   }
 
 
-  public RegisterRequest getRegisterRequest() {
-    if (getSetField() == _Fields.REGISTER_REQUEST) {
-      return (RegisterRequest)getFieldValue();
+  public CreateAccountRequest getCreateAccountRequest() {
+    if (getSetField() == _Fields.CREATE_ACCOUNT_REQUEST) {
+      return (CreateAccountRequest)getFieldValue();
     } else {
-      throw new RuntimeException("Cannot get field 'registerRequest' because union is currently set to " + getFieldDesc(getSetField()).name);
+      throw new RuntimeException("Cannot get field 'createAccountRequest' because union is currently set to " + getFieldDesc(getSetField()).name);
     }
   }
 
-  public void setRegisterRequest(RegisterRequest value) {
+  public void setCreateAccountRequest(CreateAccountRequest value) {
     if (value == null) throw new NullPointerException();
-    setField_ = _Fields.REGISTER_REQUEST;
+    setField_ = _Fields.CREATE_ACCOUNT_REQUEST;
     value_ = value;
   }
 
@@ -357,8 +357,8 @@ public class ExchangeRequestPayload extends org.apache.thrift.TUnion<ExchangeReq
     value_ = value;
   }
 
-  public boolean isSetRegisterRequest() {
-    return setField_ == _Fields.REGISTER_REQUEST;
+  public boolean isSetCreateAccountRequest() {
+    return setField_ == _Fields.CREATE_ACCOUNT_REQUEST;
   }
 
 
