@@ -19,9 +19,9 @@ public class DefaultProcessorOrchestrator implements ProcessorOrchestrator {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultProcessorOrchestrator.class);
 
     private List<MessageDestinationDefinition> messageDestinationDefinitions;
-    private int dispatcherCount = 2;//TODO : move to config
-    private ExecutorService messageDispatcherExecutor; //TODO : set me
-    private ExecutorService messageProcessorExecutor; //TODO : set me
+    private int messageDispatcherCount;
+    private ExecutorService messageDispatcherExecutor;
+    private ExecutorService messageProcessorExecutor;
     private final Map<BlockingQueue<OperationalMessage>, ControllableMessageProcessor<OperationalMessage>> messageProcessorsMap = new ConcurrentHashMap<>();
     private final List<MessageDispatcher> messageDispatchers = new CopyOnWriteArrayList<>();
 
@@ -36,8 +36,8 @@ public class DefaultProcessorOrchestrator implements ProcessorOrchestrator {
             }
         }
 
-        List<List<BlockingQueue<OperationalMessage>>> buckets = createBucketsOfQueues(dispatcherCount);
-        for (int i = 0; i < dispatcherCount; i++) {
+        List<List<BlockingQueue<OperationalMessage>>> buckets = createBucketsOfQueues(messageDispatcherCount);
+        for (int i = 0; i < messageDispatcherCount; i++) {
             MessageDispatcher messageDispatcher = new MessageDispatcher(buckets.get(i), messageProcessorsMap, messageProcessorExecutor);
             messageDispatchers.add(messageDispatcher);
             messageDispatcherExecutor.submit(messageDispatcher);
@@ -56,6 +56,18 @@ public class DefaultProcessorOrchestrator implements ProcessorOrchestrator {
     @Override
     public void setMessageDestinationDefinitions(List<MessageDestinationDefinition> messageDestinationDefinitions) {
         this.messageDestinationDefinitions = messageDestinationDefinitions;
+    }
+
+    public void setMessageDispatcherCount(int messageDispatcherCount) {
+        this.messageDispatcherCount = messageDispatcherCount;
+    }
+
+    public void setMessageDispatcherExecutor(ExecutorService messageDispatcherExecutor) {
+        this.messageDispatcherExecutor = messageDispatcherExecutor;
+    }
+
+    public void setMessageProcessorExecutor(ExecutorService messageProcessorExecutor) {
+        this.messageProcessorExecutor = messageProcessorExecutor;
     }
 
     // TODO : smart queues bucketing

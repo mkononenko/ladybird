@@ -51,6 +51,17 @@
                 </bean>
             </list>
         </property>
+        <property name="messageDispatcherCount" value="#{properties[message_dispatchers_count]}"/>
+        <property name="messageDispatcherExecutor">
+            <bean class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
+                <constructor-arg value="#{properties[message_dispatchers_count]}"/>
+            </bean>
+        </property>
+        <property name="messageProcessorExecutor">
+            <bean class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
+                <constructor-arg value="#{properties[message_processors_count]}"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="createAccountQueue" class="java.util.concurrent.LinkedBlockingQueue"/>
