@@ -26,7 +26,7 @@ public class Server {
             applicationContextXml = args[0];
         }
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(applicationContextXml)) {
-            OperationalBootstrapService operationalBootstrapService = (OperationalBootstrapService) context.getBean(OperationalBootstrapService.class);
+            OperationalBootstrapService operationalBootstrapService = (OperationalBootstrapService) context.getBean("operationalBootstrapService");
             operationalBootstrapService.start();
         }
         LOGGER.info("Operations Server Application stopped.");
