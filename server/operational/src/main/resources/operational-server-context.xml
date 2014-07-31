@@ -14,11 +14,11 @@
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
             http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 	
-    <context:component-scan base-package="com.myco.ladybird.server.operational" />
+    <context:component-scan base-package="com.myco.ladybird.server.operational"/>
 
-    <!--import resource="classpath:common-dao-context.xml" /-->
+    <import resource="classpath:common-service-context.xml"/>
 
-    <util:properties id="properties" location="classpath:/operational-server.properties" />
+    <util:properties id="properties" location="classpath:/operational-server.properties"/>
 
     <bean id="operationalBootstrapService" class="com.myco.ladybird.server.operational.infra.bootstrap.DefaultOperationalBootstrapService"/>
 

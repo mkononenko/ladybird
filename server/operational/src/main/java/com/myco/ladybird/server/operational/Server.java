@@ -16,7 +16,7 @@ public class Server {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
 
-    private static final String DEFAULT_APPLICATION_CONTEXT_XML = "operationalContext.xml";
+    private static final String DEFAULT_APPLICATION_CONTEXT_XML = "operational-server-context.xml";
 
     public static void main(String[] args) {
         LOGGER.info("Application starting.. " + Charset.defaultCharset().name());
