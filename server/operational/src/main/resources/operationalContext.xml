@@ -22,9 +22,7 @@
 
     <bean id="operationalBootstrapService" class="com.myco.ladybird.server.operational.infra.bootstrap.DefaultOperationalBootstrapService"/>
 
-    <bean id="requestProcessor" class="com.myco.ladybird.server.operational.service.processor.DefaultRequestProcessor">
-        <property name="createAccountQueue" ref="createAccountQueue"/>
-    </bean>
+    <bean id="requestProcessor" class="com.myco.ladybird.server.operational.service.processor.DefaultRequestProcessor"/>
 
     <bean id="operationalConfiguration" class="com.myco.ladybird.server.operational.infra.configuration.OperationalConfiguration">
         <property name="nettyServerConfiguration">
