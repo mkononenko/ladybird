@@ -48,7 +48,7 @@ public class NettyServer extends Thread {
             LOG.debug("NettyServer ServerBootstrap created");
 //            executor = new DefaultEventExecutorGroup(serverConfiguration.getExecutorThreadSize());
 //            LOG.debug("NettyServer Task Executor created");
-            ChannelInitializer channelInitializer = new WebSocketServerInitializer();
+            ChannelInitializer channelInitializer = new WebSocketChannelInitializer();
 
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class).childHandler(channelInitializer)

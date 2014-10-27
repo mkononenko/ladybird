@@ -1,20 +1,27 @@
 package com.myco.ladybird.server.operational.service.exchange.request.impl.thrift;
 
+import com.myco.ladybird.common.exchange.endpoint.CreateAccountRequest;
 import com.myco.ladybird.server.operational.service.exchange.ExchangeType;
-import com.myco.ladybird.server.operational.service.exchange.request.AccountInfo;
-import com.myco.ladybird.server.operational.service.exchange.request.CreateAccountRequest;
+import com.myco.ladybird.server.operational.service.exchange.request.OperationalCreateAccountRequest;
+import com.myco.ladybird.server.operational.service.exchange.response.OperationalCreateAccountResponse;
+import com.myco.ladybird.server.operational.service.exchange.response.impl.thrift.ThriftCreateAccountResponse;
 
 /**
  *
  * @author mkononenko
  */
-public class ThriftCreateAccountRequest implements CreateAccountRequest {
+public class ThriftCreateAccountRequest implements OperationalCreateAccountRequest {
 
-    private final com.myco.ladybird.common.exchange.endpoint.CreateAccountRequest createAccountRequest;
-    private AccountInfo accountInfo;
+    private final CreateAccountRequest createAccountRequest;
 
     public ThriftCreateAccountRequest(com.myco.ladybird.common.exchange.endpoint.CreateAccountRequest createAccountRequest) {
         this.createAccountRequest = createAccountRequest;
+    }
+
+    @Override
+    public OperationalCreateAccountResponse createResponse() {
+        ThriftCreateAccountResponse response = new ThriftCreateAccountResponse(this);
+        return response;
     }
 
     @Override
@@ -28,10 +35,18 @@ public class ThriftCreateAccountRequest implements CreateAccountRequest {
     }
 
     @Override
-    public AccountInfo getAccountInfo() {
-        if (accountInfo == null) {
-            accountInfo = AccountInfoConverter.fromThriftAccountInfo(createAccountRequest.getAccountInfo());
+    public String getEmail() {
+        if (createAccountRequest.getAccountInfo() != null) {
+            return createAccountRequest.getAccountInfo().getEmail();
         }
-        return accountInfo;
+        return null;
+    }
+
+    @Override
+    public String getPhone() {
+        if (createAccountRequest.getAccountInfo() != null) {
+            return createAccountRequest.getAccountInfo().getPhone();
+        }
+        return null;
     }
 }

@@ -15,10 +15,16 @@ public class Id {
     }
 
     public static Id valueOf(Long value) {
+        if (value == null) {
+            return null;
+        }
         return new Id(IdType.LONG, value);
     }
 
     public static Id valueOf(String value) {
+        if (value == null) {
+            return null;
+        }
         return new Id(IdType.STRING, value);
     }
 

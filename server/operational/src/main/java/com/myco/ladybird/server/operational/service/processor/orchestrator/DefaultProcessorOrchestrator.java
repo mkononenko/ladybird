@@ -37,8 +37,8 @@ public class DefaultProcessorOrchestrator implements ProcessorOrchestrator {
         }
 
         List<List<BlockingQueue<OperationalMessage>>> buckets = createBucketsOfQueues(messageDispatcherCount);
-        for (int i = 0; i < messageDispatcherCount; i++) {
-            MessageDispatcher messageDispatcher = new MessageDispatcher(buckets.get(i), messageProcessorsMap, messageProcessorExecutor);
+        for (List<BlockingQueue<OperationalMessage>> bucket : buckets) {
+            MessageDispatcher messageDispatcher = new MessageDispatcher(bucket, messageProcessorsMap, messageProcessorExecutor);
             messageDispatchers.add(messageDispatcher);
             messageDispatcherExecutor.submit(messageDispatcher);
         }

@@ -3,6 +3,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
        xmlns:util="http://www.springframework.org/schema/util" xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xsi:schemaLocation="
             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -12,7 +13,53 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
             http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-            http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
-	
-    <context:component-scan base-package="com.myco.ladybird.server.common.dao"/>
+            http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+            http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+    <context:annotation-config/>
+
+    <!-- context:component-scan base-package="com.myco.ladybird.server.common.dao"/-->
+<!-- TODO : introduce switching between dao's -->
+    <context:property-placeholder location="classpath:dao.properties"/>
+
+    <!--mongo:auditing/--> <!-- TODO : do we need this -- >
+
+    <mongo:mongo id="mongoClient" replica-set="${mongo.servers}" write-concern="${mongo.write.concern}">
+        <mongo:options
+            connections-per-host="${mongo.connections.per.host}"
+            threads-allowed-to-block-for-connection-multiplier="${mongo.threads.allowed.to.block.for.connection.multiplier}"
+            connect-timeout="${mongo.connection.timeout}"
+            max-wait-time="${mongo.max.wait.time}"
+            auto-connect-retry="${mongo.auto.connect.retry}"
+            socket-keep-alive="${mongo.socket.keepalive}"
+            socket-timeout="${mongo.socket.timeout}"
+            slave-ok="${mongo.slaveOk}"
+            write-number="${mongo.write.number}"
+            write-timeout="${mongo.write.timeout}"
+            write-fsync="true"/>
+    </mongo:mongo>
+
+    <mongo:db-factory dbname="${mongo.db.name}" mongo-ref="mongoClient"/>
+
+    <bean id="mongoTypeMapper" class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
+        <constructor-arg name="typeKey"> <!-- TODO : check this -->
+            <null/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="mongoMappingContext" class="org.springframework.data.mongodb.core.mapping.MongoMappingContext"/>
+
+    <bean id="mongoConverter" class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <constructor-arg name="mappingContext" ref="mongoMappingContext"/>
+        <property name="typeMapper" ref="mongoTypeMapper"/>
+    </bean>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <constructor-arg name="mongoConverter" ref="mongoConverter"/>
+        <property name="writeResultChecking" value="EXCEPTION"/>
+    </bean>
+
+    <bean id="accountDao" class="com.myco.ladybird.server.common.dao.impl.mongo.AccountMongoDao"/>
 </beans>

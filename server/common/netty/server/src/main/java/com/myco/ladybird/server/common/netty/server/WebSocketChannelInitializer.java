@@ -10,7 +10,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
  *
  * @author mkononenko
  */
-public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
+public class WebSocketChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     private ServerConfiguration serverConfiguration;
 

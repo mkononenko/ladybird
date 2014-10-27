@@ -4,9 +4,5 @@ package com.myco.ladybird.server.common.core.model;
  *
  * @author mkononenko
  */
-public interface Identifiable {
-
-    Id getId();
-
-    void setId(Id id);
+public interface Model extends Identifiable {
 }
