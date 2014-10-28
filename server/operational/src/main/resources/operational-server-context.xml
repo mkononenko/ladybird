@@ -20,8 +20,6 @@
 
     <util:properties id="properties" location="classpath:/operational-server.properties"/>
 
-    <bean id="operationalBootstrapService" class="com.myco.ladybird.server.operational.infra.bootstrap.DefaultOperationalBootstrapService"/>
-
     <bean id="requestProcessor" class="com.myco.ladybird.server.operational.service.processor.DefaultRequestProcessor"/>
 
     <bean id="operationalConfiguration" class="com.myco.ladybird.server.operational.infra.configuration.OperationalConfiguration">

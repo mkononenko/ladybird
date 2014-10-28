@@ -15,6 +15,7 @@ public class ServerConfiguration {
     private int port = ServerConfigurationConstants.DEFAULT_PORT;
     private ExchangeFactory exchangeFactory;
     private SimpleChannelInboundHandler requestHandler;
+    private SessionTracker sessionTracker;
 
     public int getExecutorThreadSize() {
         return executorThreadSize;
@@ -54,5 +55,13 @@ public class ServerConfiguration {
 
     public void setRequestHandler(SimpleChannelInboundHandler requestHandler) {
         this.requestHandler = requestHandler;
+    }
+
+    public SessionTracker getSessionTracker() {
+        return sessionTracker;
+    }
+
+    public void setSessionTracker(SessionTracker sessionTracker) {
+        this.sessionTracker = sessionTracker;
     }
 }
