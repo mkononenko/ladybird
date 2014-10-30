@@ -20,7 +20,7 @@ public class DefaultSessionCache implements SessionCache {
     private ConcurrentMap<UUID, Channel> channels = new ConcurrentHashMap<>();
 
     @Override
-    public void addSession(Channel channel, UUID id) {
+    public void addItem(UUID id, Channel channel) {
         Channel previousChannel;
         if ((previousChannel = channels.putIfAbsent(id, channel)) != null) {
             LOGGER.warn("Channel is already associated with id [{}]; previous channel: {}; new channel: {}", id, previousChannel, channel);
@@ -28,14 +28,14 @@ public class DefaultSessionCache implements SessionCache {
     }
 
     @Override
-    public void removeSession(Channel channel, UUID id) {
+    public void removeItem(UUID id, Channel channel) {
         if (!channels.remove(id, channel)) {
             LOGGER.warn("Channel is not associated with id [{}]; channel: {}", id, channel);
         }
     }
 
     @Override
-    public Channel getSession(UUID id) {
+    public Channel getItem(UUID id) {
         return channels.get(id);
     }
 }

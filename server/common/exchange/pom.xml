@@ -4,26 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.myco.ladybird</groupId>
-        <artifactId>server</artifactId>
+        <groupId>com.myco.ladybird.server</groupId>
+        <artifactId>common</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.myco.ladybird.server</groupId>
-    <artifactId>common</artifactId>
-    <packaging>pom</packaging>
+    <groupId>com.myco.ladybird.server.common</groupId>
+    <artifactId>exchange</artifactId>
+    <packaging>jar</packaging>
 
-    <name>Ladybird Server Common</name>
+    <name>Ladybird Common Server Exchange</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <modules>
-        <module>exchange</module>
-        <module>netty</module>
-        <module>core</module>
-        <module>dao</module>
-        <module>service</module>
-    </modules>
 </project>

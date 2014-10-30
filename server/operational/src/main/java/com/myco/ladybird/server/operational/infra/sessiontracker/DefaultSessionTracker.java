@@ -21,11 +21,11 @@ public class DefaultSessionTracker implements SessionTracker {
 
     @Override
     public void sessionStarted(Channel channel, UUID id) {
-        sessionCache.addSession(channel, id);
+        sessionCache.addItem(id, channel);
     }
 
     @Override
     public void sessionFinished(Channel channel, UUID id) {
-        sessionCache.removeSession(channel, id);
+        sessionCache.removeItem(id, channel);
     }
 }
