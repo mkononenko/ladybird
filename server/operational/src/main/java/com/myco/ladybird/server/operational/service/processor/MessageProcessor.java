@@ -1,13 +1,13 @@
 package com.myco.ladybird.server.operational.service.processor;
 
-import com.myco.ladybird.server.operational.service.exchange.OperationalMessage;
+import com.myco.ladybird.server.common.exchange.Message;
 
 /**
  *
  * @author mkononenko
  * @param <T>
  */
-public interface MessageProcessor<T extends OperationalMessage> {
+public interface MessageProcessor<T extends Message, R extends Message> {
 
-    void process(T operationalMessage);
+    R process(T message);
 }

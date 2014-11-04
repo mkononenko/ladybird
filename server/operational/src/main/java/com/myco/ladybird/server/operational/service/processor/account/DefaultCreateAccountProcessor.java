@@ -1,16 +1,17 @@
 package com.myco.ladybird.server.operational.service.processor.account;
 
-import com.myco.ladybird.server.operational.service.exchange.request.OperationalCreateAccountRequest;
-import com.myco.ladybird.server.operational.service.processor.AbstractControllableMessageProcessor;
+import com.myco.ladybird.server.common.service.account.exchange.CreateAccountRequest;
+import com.myco.ladybird.server.common.service.account.exchange.CreateAccountResponse;
+import com.myco.ladybird.server.operational.service.processor.AbstractControllableRequestProcessor;
 
 /**
  *
  * @author mkononenko
  */
-public class DefaultCreateAccountProcessor extends AbstractControllableMessageProcessor<OperationalCreateAccountRequest> implements CreateAccountProcessor {
+public class DefaultCreateAccountProcessor extends AbstractControllableRequestProcessor<CreateAccountRequest, CreateAccountResponse> implements CreateAccountProcessor {
 
     @Override
-    public void process(OperationalCreateAccountRequest createAccountRequest) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CreateAccountResponse process(CreateAccountRequest createAccountRequest) {
+        throw new UnsupportedOperationException("Not supported yet."); //TODO : implement me
     }
 }

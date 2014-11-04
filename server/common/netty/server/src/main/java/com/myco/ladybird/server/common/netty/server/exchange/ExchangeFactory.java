@@ -6,5 +6,5 @@ package com.myco.ladybird.server.common.netty.server.exchange;
  */
 public interface ExchangeFactory {
 
-    NettyRequest createNettyRequest(byte[] bytes);
+    <T extends NettyResponse> NettyRequest<T> createNettyRequest(byte[] bytes);
 }

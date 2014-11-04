@@ -1,12 +1,12 @@
 package com.myco.ladybird.server.operational.service.processor.account;
 
-import com.myco.ladybird.server.operational.service.exchange.request.OperationalCreateAccountRequest;
-import com.myco.ladybird.server.operational.service.processor.ControllableMessageProcessor;
+import com.myco.ladybird.server.common.service.account.exchange.CreateAccountRequest;
+import com.myco.ladybird.server.common.service.account.exchange.CreateAccountResponse;
+import com.myco.ladybird.server.operational.service.processor.ControllableRequestProcessor;
 
 /**
  *
  * @author mkononenko
  */
-public interface CreateAccountProcessor extends ControllableMessageProcessor<OperationalCreateAccountRequest> {
-
+public interface CreateAccountProcessor extends ControllableRequestProcessor<CreateAccountRequest, CreateAccountResponse> {
 }

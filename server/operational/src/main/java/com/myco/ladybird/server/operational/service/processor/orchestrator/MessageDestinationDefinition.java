@@ -1,6 +1,6 @@
 package com.myco.ladybird.server.operational.service.processor.orchestrator;
 
-import com.myco.ladybird.server.operational.service.exchange.OperationalMessage;
+import com.myco.ladybird.server.common.exchange.Message;
 import com.myco.ladybird.server.operational.service.processor.ControllableMessageProcessor;
 
 import java.util.concurrent.BlockingQueue;
@@ -11,7 +11,7 @@ import java.util.concurrent.BlockingQueue;
  * @param <R>
  * @param <C>
  */
-public class MessageDestinationDefinition<R extends OperationalMessage, C extends ControllableMessageProcessor<R>> {
+public class MessageDestinationDefinition<R extends Message, C extends ControllableMessageProcessor<R, ? extends Message>> {
 
     private BlockingQueue<R> queue;
     private Class<C> processorClass;

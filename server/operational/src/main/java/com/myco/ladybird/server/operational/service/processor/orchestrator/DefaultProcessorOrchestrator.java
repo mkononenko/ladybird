@@ -1,6 +1,6 @@
 package com.myco.ladybird.server.operational.service.processor.orchestrator;
 
-import com.myco.ladybird.server.operational.service.exchange.OperationalMessage;
+import com.myco.ladybird.server.common.exchange.Message;
 import com.myco.ladybird.server.operational.service.processor.ControllableMessageProcessor;
 
 import java.util.ArrayList;
@@ -22,22 +22,22 @@ public class DefaultProcessorOrchestrator implements ProcessorOrchestrator {
     private int messageDispatcherCount;
     private ExecutorService messageDispatcherExecutor;
     private ExecutorService messageProcessorExecutor;
-    private final Map<BlockingQueue<OperationalMessage>, ControllableMessageProcessor<OperationalMessage>> messageProcessorsMap = new ConcurrentHashMap<>();
+    private final Map<BlockingQueue<? extends Message>, ControllableMessageProcessor<Message, Message>> messageProcessorsMap = new ConcurrentHashMap<>();
     private final List<MessageDispatcher> messageDispatchers = new CopyOnWriteArrayList<>();
 
     @Override
     public void start() {
         for (MessageDestinationDefinition messageDestinationDefinition : messageDestinationDefinitions) {
             try {
-                ControllableMessageProcessor<OperationalMessage> controllableMessageProcessor = (ControllableMessageProcessor<OperationalMessage>) messageDestinationDefinition.getProcessorClass().newInstance();
+                ControllableMessageProcessor<Message, Message> controllableMessageProcessor = (ControllableMessageProcessor<Message, Message>) messageDestinationDefinition.getProcessorClass().newInstance();
                 messageProcessorsMap.put(messageDestinationDefinition.getQueue(), controllableMessageProcessor);
             } catch (InstantiationException | IllegalAccessException ex) {
                 LOGGER.error("Failed to instantiate ControllableMessageProcessor", ex);
             }
         }
 
-        List<List<BlockingQueue<OperationalMessage>>> buckets = createBucketsOfQueues(messageDispatcherCount);
-        for (List<BlockingQueue<OperationalMessage>> bucket : buckets) {
+        List<List<BlockingQueue<? extends Message>>> buckets = createBucketsOfQueues(messageDispatcherCount);
+        for (List<BlockingQueue<? extends Message>> bucket : buckets) {
             MessageDispatcher messageDispatcher = new MessageDispatcher(bucket, messageProcessorsMap, messageProcessorExecutor);
             messageDispatchers.add(messageDispatcher);
             messageDispatcherExecutor.submit(messageDispatcher);
@@ -71,12 +71,12 @@ public class DefaultProcessorOrchestrator implements ProcessorOrchestrator {
     }
 
     // TODO : smart queues bucketing
-    private List<List<BlockingQueue<OperationalMessage>>> createBucketsOfQueues(int bucketsCount) {
+    private List<List<BlockingQueue<? extends Message>>> createBucketsOfQueues(int bucketsCount) {
         int queuesCount = messageDestinationDefinitions.size();
         int queuesPerBucket = queuesCount / bucketsCount;
-        List<List<BlockingQueue<OperationalMessage>>> buckets = new ArrayList<>();
+        List<List<BlockingQueue<? extends Message>>> buckets = new ArrayList<>();
         for (int i = 0; i < bucketsCount; i++) {
-            List<BlockingQueue<OperationalMessage>> bucket = new ArrayList<>();
+            List<BlockingQueue<? extends Message>> bucket = new ArrayList<>();
             for (int j = i * queuesPerBucket; j < queuesPerBucket * (i + 1) && j < queuesCount; j++) {
                 bucket.add(messageDestinationDefinitions.get(j).getQueue());
             }

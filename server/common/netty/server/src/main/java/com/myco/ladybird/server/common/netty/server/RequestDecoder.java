@@ -21,7 +21,7 @@ public class RequestDecoder extends SimpleChannelInboundHandler<TextWebSocketFra
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame msg) throws Exception {
-        NettyRequest nettyRequest = exchangeFactory.createNettyRequest(msg.content().array());
+        NettyRequest<?> nettyRequest = exchangeFactory.createNettyRequest(msg.content().array());
         channelHandlerContext.fireChannelRead(nettyRequest);
     }
 }

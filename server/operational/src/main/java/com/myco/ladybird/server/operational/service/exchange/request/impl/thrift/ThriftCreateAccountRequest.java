@@ -1,32 +1,38 @@
 package com.myco.ladybird.server.operational.service.exchange.request.impl.thrift;
 
-import com.myco.ladybird.common.exchange.endpoint.CreateAccountRequest;
-import com.myco.ladybird.server.operational.service.exchange.ExchangeType;
-import com.myco.ladybird.server.operational.service.exchange.request.OperationalCreateAccountRequest;
-import com.myco.ladybird.server.operational.service.exchange.response.OperationalCreateAccountResponse;
+import com.myco.ladybird.server.common.exchange.AbstractRequest;
+import com.myco.ladybird.server.common.exchange.AcceptResponse;
+import com.myco.ladybird.server.common.exchange.AsyncRequestType;
+import com.myco.ladybird.server.common.service.account.exchange.CreateAccountRequest;
+import com.myco.ladybird.server.common.service.account.exchange.CreateAccountResponse;
 import com.myco.ladybird.server.operational.service.exchange.response.impl.thrift.ThriftCreateAccountResponse;
 
 /**
  *
  * @author mkononenko
  */
-public class ThriftCreateAccountRequest implements OperationalCreateAccountRequest {
+public class ThriftCreateAccountRequest extends AbstractRequest<CreateAccountResponse> implements CreateAccountRequest {
 
-    private final CreateAccountRequest createAccountRequest;
+    private final com.myco.ladybird.common.exchange.endpoint.CreateAccountRequest createAccountRequest;
 
     public ThriftCreateAccountRequest(com.myco.ladybird.common.exchange.endpoint.CreateAccountRequest createAccountRequest) {
         this.createAccountRequest = createAccountRequest;
     }
 
     @Override
-    public OperationalCreateAccountResponse createResponse() {
+    public CreateAccountResponse createResponse() {
         ThriftCreateAccountResponse response = new ThriftCreateAccountResponse(this);
         return response;
     }
 
     @Override
-    public ExchangeType getType() {
-        return ExchangeType.CREATE_ACCOUNT;
+    public AcceptResponse createAcceptResponse() {
+        return null; //TODO
+    }
+
+    @Override
+    public AsyncRequestType getAsyncRequestType() {
+        return null; //TODO
     }
 
     @Override
