@@ -21,7 +21,7 @@ public class DefaultAccountService implements AccountService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultAccountService.class);
     @Autowired
     private AccountDao<Account> accountDao;
-    //@Autowired
+    @Autowired
     private AccountRequestTransformer accountRequestTransformer;
 
     @Override

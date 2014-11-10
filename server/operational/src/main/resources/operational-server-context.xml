@@ -20,7 +20,7 @@
 
     <util:properties id="properties" location="classpath:/operational-server.properties"/>
 
-    <bean id="requestProcessor" class="com.myco.ladybird.server.operational.service.processor.DefaultRequestProcessor"/>
+    <bean id="asyncableRequestProcessor" class="com.myco.ladybird.server.operational.service.processor.DefaultAsyncableRequestProcessor"/>
 
     <bean id="operationalConfiguration" class="com.myco.ladybird.server.operational.infra.configuration.OperationalConfiguration">
         <property name="nettyServerConfiguration">
@@ -29,8 +29,8 @@
                     <bean class="com.myco.ladybird.server.operational.service.exchange.netty.ThriftExchangeFactory"/>
                 </property>
                 <property name="requestHandler">
-                    <bean class="com.myco.ladybird.server.operational.infra.requesthandler.netty.DefaultRequestHandler">
-                        <property name="requestProcessor" ref="requestProcessor"/>
+                    <bean class="com.myco.ladybird.server.operational.infra.requesthandler.netty.DefaultNettyRequestHandler">
+                        <property name="requestProcessor" ref="asyncableRequestProcessor"/>
                     </bean>
                 </property>
                 <property name="bindInterface" value="#{properties[netty_host]}"/>
@@ -61,5 +61,6 @@
         </property>
     </bean>
 
+    <bean id="acceptResponseQueue" class="java.util.concurrent.LinkedBlockingQueue"/>
     <bean id="createAccountQueue" class="java.util.concurrent.LinkedBlockingQueue"/>
 </beans>

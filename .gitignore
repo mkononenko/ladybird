@@ -6,3 +6,5 @@
 /server/common/core/target/
 /server/common/dao/target/
 /server/common/netty/server/target/
+/server/common/exchange/target/
+/server/common/service/target/

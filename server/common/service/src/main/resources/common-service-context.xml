@@ -14,9 +14,9 @@
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
             http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-    <context:component-scan base-package="com.myco.ladybird.server.common.service"/>
-
     <import resource="classpath:common-dao-context.xml"/>
 
-    <bean id="accountService" class="com.myco.ladybird.server.service.account.DefaultAccountService"/>
+    <context:component-scan base-package="com.myco.ladybird.server.common.service"/>
+
+    <bean id="accountRequestTransformer" class="com.myco.ladybird.server.common.service.account.exchange.transformer.request.mongo.MongoAccountRequestTransformer"/>
 </beans>

@@ -18,11 +18,10 @@
 
     <context:annotation-config/>
 
-    <!-- context:component-scan base-package="com.myco.ladybird.server.common.dao"/-->
-<!-- TODO : introduce switching between dao's -->
     <context:property-placeholder location="classpath:dao.properties"/>
 
-    <!--mongo:auditing/--> <!-- TODO : do we need this -- >
+    <!-- TODO : do we need this -->
+    <!--mongo:auditing/-->
 
     <mongo:mongo id="mongoClient" replica-set="${mongo.servers}" write-concern="${mongo.write.concern}">
         <mongo:options
